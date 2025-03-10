@@ -110,6 +110,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  // Only run this code if the carousel exists on the page
   const images = document.querySelectorAll(".carousel-images img");
   const prevBtn = document.getElementById("prevBtn");
   const nextBtn = document.getElementById("nextBtn");
@@ -117,33 +118,22 @@ document.addEventListener("DOMContentLoaded", function () {
   if (images.length > 0 && prevBtn && nextBtn) {
     let index = 0;
 
-    function showImage(newIndex, direction) {
-      images.forEach((img) => {
-        img.classList.remove("active", "next", "prev");
+    function showImage(i) {
+      images.forEach((img, idx) => {
+        img.classList.toggle("active", idx === i);
       });
-
-      if (direction === "next") {
-        images[newIndex].classList.add("next");
-        images[index].style.transform = "translateX(-100%)";
-      } else {
-        images[newIndex].classList.add("prev");
-        images[index].style.transform = "translateX(100%)";
-      }
-
-      images[newIndex].style.transform = "translateX(0)";
-      index = newIndex;
     }
 
     prevBtn.addEventListener("click", function () {
-      const newIndex = (index - 1 + images.length) % images.length;
-      showImage(newIndex, "prev");
+      index = (index - 1 + images.length) % images.length;
+      showImage(index);
     });
 
     nextBtn.addEventListener("click", function () {
-      const newIndex = (index + 1) % images.length;
-      showImage(newIndex, "next");
+      index = (index + 1) % images.length;
+      showImage(index);
     });
 
-    showImage(index, "next");
+    showImage(index);
   }
 });
