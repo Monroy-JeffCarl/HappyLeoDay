@@ -171,3 +171,82 @@ img:active {
   text-align: center;
   margin-top: 80px;
 }
+
+@media screen and (max-width: 480px) {
+  .content-main {
+    margin-top: 50px;
+    padding: 10px;
+  }
+
+  .carousel {
+    width: 90%;
+    margin: 40px auto;
+  }
+
+  .carousel-images img {
+    border-radius: 5px;
+  }
+
+  button {
+    padding: 8px 15px;
+    font-size: 14px;
+  }
+
+  input {
+    width: 90%;
+    font-size: 14px;
+  }
+
+  img {
+    width: 80px;
+  }
+
+  #clickIcon {
+    width: 80px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .carousel {
+    width: 85%;
+    max-width: 400px;
+  }
+
+  .carousel-images img {
+    border-radius: 8px;
+  }
+
+  .content-main {
+    margin-top: 60px;
+    padding: 15px;
+  }
+
+  button {
+    padding: 10px 18px;
+    font-size: 15px;
+  }
+
+  input {
+    width: 85%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .carousel {
+    width: 70%;
+    max-width: 600px;
+  }
+
+  .content-main {
+    margin-top: 100px;
+  }
+
+  button {
+    padding: 12px 22px;
+    font-size: 18px;
+  }
+
+  input {
+    width: 70%;
+  }
+}
