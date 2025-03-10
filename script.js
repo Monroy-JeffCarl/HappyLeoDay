@@ -62,10 +62,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (icon && counter && congratsMessage && loader) {
     icon.addEventListener("click", () => {
+      if (clickCount >= totalClicks) return;
+
       clickCount++;
       counter.textContent = `Clicks: ${clickCount} / ${totalClicks}`;
 
       if (clickCount === totalClicks) {
+        icon.style.pointerEvents = "none";
+        icon.style.cursor = "not-allowed";
         congratsMessage.classList.remove("hidden");
         loader.classList.remove("hidden");
 
@@ -74,5 +78,72 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 2000);
       }
     });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (window.location.pathname.includes("main-page.html")) {
+    function createConfetti() {
+      const confetti = document.createElement("div");
+      confetti.classList.add("confetti");
+      document.body.appendChild(confetti);
+
+      const size = Math.random() * 10 + 5;
+      confetti.style.width = `${size}px`;
+      confetti.style.height = `${size}px`;
+      confetti.style.left = `${Math.random() * 100}vw`;
+      confetti.style.backgroundColor = getRandomColor();
+      confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+
+      setTimeout(() => {
+        confetti.remove();
+      }, 5000);
+    }
+
+    function getRandomColor() {
+      const colors = ["#ff6b6b", "#ffcc00", "#4ecdc4", "#ff66ff", "#3498db"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    setInterval(createConfetti, 200);
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const images = document.querySelectorAll(".carousel-images img");
+  const prevBtn = document.getElementById("prevBtn");
+  const nextBtn = document.getElementById("nextBtn");
+
+  if (images.length > 0 && prevBtn && nextBtn) {
+    let index = 0;
+
+    function showImage(newIndex, direction) {
+      images.forEach((img) => {
+        img.classList.remove("active", "next", "prev");
+      });
+
+      if (direction === "next") {
+        images[newIndex].classList.add("next");
+        images[index].style.transform = "translateX(-100%)";
+      } else {
+        images[newIndex].classList.add("prev");
+        images[index].style.transform = "translateX(100%)";
+      }
+
+      images[newIndex].style.transform = "translateX(0)";
+      index = newIndex;
+    }
+
+    prevBtn.addEventListener("click", function () {
+      const newIndex = (index - 1 + images.length) % images.length;
+      showImage(newIndex, "prev");
+    });
+
+    nextBtn.addEventListener("click", function () {
+      const newIndex = (index + 1) % images.length;
+      showImage(newIndex, "next");
+    });
+
+    showImage(index, "next");
   }
 });
